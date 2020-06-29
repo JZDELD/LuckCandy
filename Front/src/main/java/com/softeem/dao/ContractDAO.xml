@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.softeem.dao.ContractDAO">
+  <resultMap id="BaseResultMap" type="com.softeem.bean.po.Contract">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="signingMethod" jdbcType="INTEGER" property="signingMethod" />
+    <result column="paymentMethod" jdbcType="INTEGER" property="paymentMethod" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="servicePrice" jdbcType="DOUBLE" property="servicePrice" />
+    <result column="deposit" jdbcType="DOUBLE" property="deposit" />
+    <result column="userId" jdbcType="INTEGER" property="userId" />
+    <result column="houseId" jdbcType="INTEGER" property="houseId" />
+    <result column="roomId" jdbcType="INTEGER" property="roomId" />
+    <result column="startDate" jdbcType="DATE" property="startDate" />
+    <result column="endDate" jdbcType="DATE" property="endDate" />
+    <result column="lease" jdbcType="INTEGER" property="lease" />
+    <result column="renew" jdbcType="INTEGER" property="renew" />
+    <result column="now" jdbcType="INTEGER" property="now" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, signingMethod, paymentMethod, price, servicePrice, deposit, userId, houseId, 
+    roomId, startDate, endDate, lease, renew, now, `status`, remark
+  </sql>
+  <select id="selectByExample" parameterType="com.softeem.bean.po.ContractExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from contract
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from contract
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from contract
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.softeem.bean.po.ContractExample">
+    delete from contract
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.softeem.bean.po.Contract">
+    insert into contract (id, signingMethod, paymentMethod, 
+      price, servicePrice, deposit, 
+      userId, houseId, roomId, 
+      startDate, endDate, lease, 
+      renew, now, `status`, 
+      remark)
+    values (#{id,jdbcType=INTEGER}, #{signingMethod,jdbcType=INTEGER}, #{paymentMethod,jdbcType=INTEGER}, 
+      #{price,jdbcType=DOUBLE}, #{servicePrice,jdbcType=DOUBLE}, #{deposit,jdbcType=DOUBLE}, 
+      #{userId,jdbcType=INTEGER}, #{houseId,jdbcType=INTEGER}, #{roomId,jdbcType=INTEGER}, 
+      #{startDate,jdbcType=DATE}, #{endDate,jdbcType=DATE}, #{lease,jdbcType=INTEGER}, 
+      #{renew,jdbcType=INTEGER}, #{now,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.softeem.bean.po.Contract">
+    insert into contract
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="signingMethod != null">
+        signingMethod,
+      </if>
+      <if test="paymentMethod != null">
+        paymentMethod,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="servicePrice != null">
+        servicePrice,
+      </if>
+      <if test="deposit != null">
+        deposit,
+      </if>
+      <if test="userId != null">
+        userId,
+      </if>
+      <if test="houseId != null">
+        houseId,
+      </if>
+      <if test="roomId != null">
+        roomId,
+      </if>
+      <if test="startDate != null">
+        startDate,
+      </if>
+      <if test="endDate != null">
+        endDate,
+      </if>
+      <if test="lease != null">
+        lease,
+      </if>
+      <if test="renew != null">
+        renew,
+      </if>
+      <if test="now != null">
+        now,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="signingMethod != null">
+        #{signingMethod,jdbcType=INTEGER},
+      </if>
+      <if test="paymentMethod != null">
+        #{paymentMethod,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="servicePrice != null">
+        #{servicePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="deposit != null">
+        #{deposit,jdbcType=DOUBLE},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="houseId != null">
+        #{houseId,jdbcType=INTEGER},
+      </if>
+      <if test="roomId != null">
+        #{roomId,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null">
+        #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=DATE},
+      </if>
+      <if test="lease != null">
+        #{lease,jdbcType=INTEGER},
+      </if>
+      <if test="renew != null">
+        #{renew,jdbcType=INTEGER},
+      </if>
+      <if test="now != null">
+        #{now,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.softeem.bean.po.ContractExample" resultType="java.lang.Long">
+    select count(*) from contract
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update contract
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.signingMethod != null">
+        signingMethod = #{record.signingMethod,jdbcType=INTEGER},
+      </if>
+      <if test="record.paymentMethod != null">
+        paymentMethod = #{record.paymentMethod,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DOUBLE},
+      </if>
+      <if test="record.servicePrice != null">
+        servicePrice = #{record.servicePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.deposit != null">
+        deposit = #{record.deposit,jdbcType=DOUBLE},
+      </if>
+      <if test="record.userId != null">
+        userId = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.houseId != null">
+        houseId = #{record.houseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.roomId != null">
+        roomId = #{record.roomId,jdbcType=INTEGER},
+      </if>
+      <if test="record.startDate != null">
+        startDate = #{record.startDate,jdbcType=DATE},
+      </if>
+      <if test="record.endDate != null">
+        endDate = #{record.endDate,jdbcType=DATE},
+      </if>
+      <if test="record.lease != null">
+        lease = #{record.lease,jdbcType=INTEGER},
+      </if>
+      <if test="record.renew != null">
+        renew = #{record.renew,jdbcType=INTEGER},
+      </if>
+      <if test="record.now != null">
+        now = #{record.now,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update contract
+    set id = #{record.id,jdbcType=INTEGER},
+      signingMethod = #{record.signingMethod,jdbcType=INTEGER},
+      paymentMethod = #{record.paymentMethod,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=DOUBLE},
+      servicePrice = #{record.servicePrice,jdbcType=DOUBLE},
+      deposit = #{record.deposit,jdbcType=DOUBLE},
+      userId = #{record.userId,jdbcType=INTEGER},
+      houseId = #{record.houseId,jdbcType=INTEGER},
+      roomId = #{record.roomId,jdbcType=INTEGER},
+      startDate = #{record.startDate,jdbcType=DATE},
+      endDate = #{record.endDate,jdbcType=DATE},
+      lease = #{record.lease,jdbcType=INTEGER},
+      renew = #{record.renew,jdbcType=INTEGER},
+      now = #{record.now,jdbcType=INTEGER},
+      `status` = #{record.status,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.softeem.bean.po.Contract">
+    update contract
+    <set>
+      <if test="signingMethod != null">
+        signingMethod = #{signingMethod,jdbcType=INTEGER},
+      </if>
+      <if test="paymentMethod != null">
+        paymentMethod = #{paymentMethod,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="servicePrice != null">
+        servicePrice = #{servicePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="deposit != null">
+        deposit = #{deposit,jdbcType=DOUBLE},
+      </if>
+      <if test="userId != null">
+        userId = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="houseId != null">
+        houseId = #{houseId,jdbcType=INTEGER},
+      </if>
+      <if test="roomId != null">
+        roomId = #{roomId,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null">
+        startDate = #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null">
+        endDate = #{endDate,jdbcType=DATE},
+      </if>
+      <if test="lease != null">
+        lease = #{lease,jdbcType=INTEGER},
+      </if>
+      <if test="renew != null">
+        renew = #{renew,jdbcType=INTEGER},
+      </if>
+      <if test="now != null">
+        now = #{now,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.softeem.bean.po.Contract">
+    update contract
+    set signingMethod = #{signingMethod,jdbcType=INTEGER},
+      paymentMethod = #{paymentMethod,jdbcType=INTEGER},
+      price = #{price,jdbcType=DOUBLE},
+      servicePrice = #{servicePrice,jdbcType=DOUBLE},
+      deposit = #{deposit,jdbcType=DOUBLE},
+      userId = #{userId,jdbcType=INTEGER},
+      houseId = #{houseId,jdbcType=INTEGER},
+      roomId = #{roomId,jdbcType=INTEGER},
+      startDate = #{startDate,jdbcType=DATE},
+      endDate = #{endDate,jdbcType=DATE},
+      lease = #{lease,jdbcType=INTEGER},
+      renew = #{renew,jdbcType=INTEGER},
+      now = #{now,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,37 @@
+body {
+    background-image: url(../../img/admin/home.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    -moz-user-select: none;
+    /*火狐*/
+    -webkit-user-select: none;
+    /*webkit浏览器*/
+    -ms-user-select: none;
+    /*IE10*/
+    -khtml-user-select: none;
+    /*早期浏览器*/
+    user-select: none;
+    text-align: center;
+}
+.d{
+    margin-top: 20%;
+}
+.d div{
+    font: bolder 25px "微软雅黑";
+    text-align: center;
+    line-height: 50px;
+}
+#tb1{
+    margin: 1% auto;
+    text-align: center;
+    font: normal 20px "微软雅黑";
+    line-height: 40px;
+}
+#tb1 th{
+    width: 150px;
+}
+#tb1 td{
+    width: 150px;
+}

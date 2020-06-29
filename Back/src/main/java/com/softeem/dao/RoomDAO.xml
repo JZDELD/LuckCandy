@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.softeem.dao.RoomDAO">
+  <resultMap id="BaseResultMap" type="com.softeem.bean.po.Room">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="houseId" jdbcType="INTEGER" property="houseId" />
+    <result column="configurationId" jdbcType="INTEGER" property="configurationId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="introduction" jdbcType="VARCHAR" property="introduction" />
+    <result column="area" jdbcType="DECIMAL" property="area" />
+    <result column="monthlyPrice" jdbcType="DOUBLE" property="monthlyPrice" />
+    <result column="seasonPrice" jdbcType="DOUBLE" property="seasonPrice" />
+    <result column="halfYearPrice" jdbcType="DOUBLE" property="halfYearPrice" />
+    <result column="servicePrice" jdbcType="DOUBLE" property="servicePrice" />
+    <result column="deposit" jdbcType="DOUBLE" property="deposit" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="collectNum" jdbcType="INTEGER" property="collectNum" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="video" jdbcType="VARCHAR" property="video" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, houseId, configurationId, title, introduction, area, monthlyPrice, seasonPrice, 
+    halfYearPrice, servicePrice, deposit, `status`, collectNum, image, video, remark
+  </sql>
+  <select id="selectByExample" parameterType="com.softeem.bean.po.RoomExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from room
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from room
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from room
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.softeem.bean.po.RoomExample">
+    delete from room
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.softeem.bean.po.Room">
+    insert into room (id, houseId, configurationId, 
+      title, introduction, area, 
+      monthlyPrice, seasonPrice, halfYearPrice, 
+      servicePrice, deposit, `status`, 
+      collectNum, image, video, 
+      remark)
+    values (#{id,jdbcType=INTEGER}, #{houseId,jdbcType=INTEGER}, #{configurationId,jdbcType=INTEGER}, 
+      #{title,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR}, #{area,jdbcType=DECIMAL}, 
+      #{monthlyPrice,jdbcType=DOUBLE}, #{seasonPrice,jdbcType=DOUBLE}, #{halfYearPrice,jdbcType=DOUBLE}, 
+      #{servicePrice,jdbcType=DOUBLE}, #{deposit,jdbcType=DOUBLE}, #{status,jdbcType=INTEGER}, 
+      #{collectNum,jdbcType=INTEGER}, #{image,jdbcType=VARCHAR}, #{video,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.softeem.bean.po.Room">
+    insert into room
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="houseId != null">
+        houseId,
+      </if>
+      <if test="configurationId != null">
+        configurationId,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="introduction != null">
+        introduction,
+      </if>
+      <if test="area != null">
+        area,
+      </if>
+      <if test="monthlyPrice != null">
+        monthlyPrice,
+      </if>
+      <if test="seasonPrice != null">
+        seasonPrice,
+      </if>
+      <if test="halfYearPrice != null">
+        halfYearPrice,
+      </if>
+      <if test="servicePrice != null">
+        servicePrice,
+      </if>
+      <if test="deposit != null">
+        deposit,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="collectNum != null">
+        collectNum,
+      </if>
+      <if test="image != null">
+        image,
+      </if>
+      <if test="video != null">
+        video,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="houseId != null">
+        #{houseId,jdbcType=INTEGER},
+      </if>
+      <if test="configurationId != null">
+        #{configurationId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null">
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=DECIMAL},
+      </if>
+      <if test="monthlyPrice != null">
+        #{monthlyPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="seasonPrice != null">
+        #{seasonPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="halfYearPrice != null">
+        #{halfYearPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="servicePrice != null">
+        #{servicePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="deposit != null">
+        #{deposit,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="collectNum != null">
+        #{collectNum,jdbcType=INTEGER},
+      </if>
+      <if test="image != null">
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="video != null">
+        #{video,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.softeem.bean.po.RoomExample" resultType="java.lang.Long">
+    select count(*) from room
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update room
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.houseId != null">
+        houseId = #{record.houseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.configurationId != null">
+        configurationId = #{record.configurationId,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introduction != null">
+        introduction = #{record.introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null">
+        area = #{record.area,jdbcType=DECIMAL},
+      </if>
+      <if test="record.monthlyPrice != null">
+        monthlyPrice = #{record.monthlyPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.seasonPrice != null">
+        seasonPrice = #{record.seasonPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.halfYearPrice != null">
+        halfYearPrice = #{record.halfYearPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.servicePrice != null">
+        servicePrice = #{record.servicePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.deposit != null">
+        deposit = #{record.deposit,jdbcType=DOUBLE},
+      </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.collectNum != null">
+        collectNum = #{record.collectNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.image != null">
+        image = #{record.image,jdbcType=VARCHAR},
+      </if>
+      <if test="record.video != null">
+        video = #{record.video,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update room
+    set id = #{record.id,jdbcType=INTEGER},
+      houseId = #{record.houseId,jdbcType=INTEGER},
+      configurationId = #{record.configurationId,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      introduction = #{record.introduction,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=DECIMAL},
+      monthlyPrice = #{record.monthlyPrice,jdbcType=DOUBLE},
+      seasonPrice = #{record.seasonPrice,jdbcType=DOUBLE},
+      halfYearPrice = #{record.halfYearPrice,jdbcType=DOUBLE},
+      servicePrice = #{record.servicePrice,jdbcType=DOUBLE},
+      deposit = #{record.deposit,jdbcType=DOUBLE},
+      `status` = #{record.status,jdbcType=INTEGER},
+      collectNum = #{record.collectNum,jdbcType=INTEGER},
+      image = #{record.image,jdbcType=VARCHAR},
+      video = #{record.video,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.softeem.bean.po.Room">
+    update room
+    <set>
+      <if test="houseId != null">
+        houseId = #{houseId,jdbcType=INTEGER},
+      </if>
+      <if test="configurationId != null">
+        configurationId = #{configurationId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null">
+        introduction = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        area = #{area,jdbcType=DECIMAL},
+      </if>
+      <if test="monthlyPrice != null">
+        monthlyPrice = #{monthlyPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="seasonPrice != null">
+        seasonPrice = #{seasonPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="halfYearPrice != null">
+        halfYearPrice = #{halfYearPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="servicePrice != null">
+        servicePrice = #{servicePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="deposit != null">
+        deposit = #{deposit,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="collectNum != null">
+        collectNum = #{collectNum,jdbcType=INTEGER},
+      </if>
+      <if test="image != null">
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="video != null">
+        video = #{video,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.softeem.bean.po.Room">
+    update room
+    set houseId = #{houseId,jdbcType=INTEGER},
+      configurationId = #{configurationId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      introduction = #{introduction,jdbcType=VARCHAR},
+      area = #{area,jdbcType=DECIMAL},
+      monthlyPrice = #{monthlyPrice,jdbcType=DOUBLE},
+      seasonPrice = #{seasonPrice,jdbcType=DOUBLE},
+      halfYearPrice = #{halfYearPrice,jdbcType=DOUBLE},
+      servicePrice = #{servicePrice,jdbcType=DOUBLE},
+      deposit = #{deposit,jdbcType=DOUBLE},
+      `status` = #{status,jdbcType=INTEGER},
+      collectNum = #{collectNum,jdbcType=INTEGER},
+      image = #{image,jdbcType=VARCHAR},
+      video = #{video,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

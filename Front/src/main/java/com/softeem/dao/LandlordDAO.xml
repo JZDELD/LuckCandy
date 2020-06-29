@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.softeem.dao.LandlordDAO">
+  <resultMap id="BaseResultMap" type="com.softeem.bean.po.Landlord">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="regTime" jdbcType="TIMESTAMP" property="regTime" />
+    <result column="bankCard" jdbcType="VARCHAR" property="bankCard" />
+    <result column="role" jdbcType="INTEGER" property="role" />
+    <result column="certificationId" jdbcType="INTEGER" property="certificationId" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="birthDate" jdbcType="DATE" property="birthDate" />
+    <result column="home" jdbcType="VARCHAR" property="home" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, `name`, tel, `password`, regTime, bankCard, `role`, certificationId, sex, avatar, 
+    birthDate, home, address, remark
+  </sql>
+  <select id="selectByExample" parameterType="com.softeem.bean.po.LandlordExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from landlord
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from landlord
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from landlord
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.softeem.bean.po.LandlordExample">
+    delete from landlord
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.softeem.bean.po.Landlord">
+    insert into landlord (id, `name`, tel, 
+      `password`, regTime, bankCard, 
+      `role`, certificationId, sex, 
+      avatar, birthDate, home, 
+      address, remark)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{regTime,jdbcType=TIMESTAMP}, #{bankCard,jdbcType=VARCHAR}, 
+      #{role,jdbcType=INTEGER}, #{certificationId,jdbcType=INTEGER}, #{sex,jdbcType=INTEGER}, 
+      #{avatar,jdbcType=VARCHAR}, #{birthDate,jdbcType=DATE}, #{home,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.softeem.bean.po.Landlord">
+    insert into landlord
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="password != null">
+        `password`,
+      </if>
+      <if test="regTime != null">
+        regTime,
+      </if>
+      <if test="bankCard != null">
+        bankCard,
+      </if>
+      <if test="role != null">
+        `role`,
+      </if>
+      <if test="certificationId != null">
+        certificationId,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="avatar != null">
+        avatar,
+      </if>
+      <if test="birthDate != null">
+        birthDate,
+      </if>
+      <if test="home != null">
+        home,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="regTime != null">
+        #{regTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bankCard != null">
+        #{bankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=INTEGER},
+      </if>
+      <if test="certificationId != null">
+        #{certificationId,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="avatar != null">
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="birthDate != null">
+        #{birthDate,jdbcType=DATE},
+      </if>
+      <if test="home != null">
+        #{home,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.softeem.bean.po.LandlordExample" resultType="java.lang.Long">
+    select count(*) from landlord
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update landlord
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        `name` = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tel != null">
+        tel = #{record.tel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        `password` = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regTime != null">
+        regTime = #{record.regTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.bankCard != null">
+        bankCard = #{record.bankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.role != null">
+        `role` = #{record.role,jdbcType=INTEGER},
+      </if>
+      <if test="record.certificationId != null">
+        certificationId = #{record.certificationId,jdbcType=INTEGER},
+      </if>
+      <if test="record.sex != null">
+        sex = #{record.sex,jdbcType=INTEGER},
+      </if>
+      <if test="record.avatar != null">
+        avatar = #{record.avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthDate != null">
+        birthDate = #{record.birthDate,jdbcType=DATE},
+      </if>
+      <if test="record.home != null">
+        home = #{record.home,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update landlord
+    set id = #{record.id,jdbcType=INTEGER},
+      `name` = #{record.name,jdbcType=VARCHAR},
+      tel = #{record.tel,jdbcType=VARCHAR},
+      `password` = #{record.password,jdbcType=VARCHAR},
+      regTime = #{record.regTime,jdbcType=TIMESTAMP},
+      bankCard = #{record.bankCard,jdbcType=VARCHAR},
+      `role` = #{record.role,jdbcType=INTEGER},
+      certificationId = #{record.certificationId,jdbcType=INTEGER},
+      sex = #{record.sex,jdbcType=INTEGER},
+      avatar = #{record.avatar,jdbcType=VARCHAR},
+      birthDate = #{record.birthDate,jdbcType=DATE},
+      home = #{record.home,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.softeem.bean.po.Landlord">
+    update landlord
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        `password` = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="regTime != null">
+        regTime = #{regTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bankCard != null">
+        bankCard = #{bankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        `role` = #{role,jdbcType=INTEGER},
+      </if>
+      <if test="certificationId != null">
+        certificationId = #{certificationId,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="avatar != null">
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="birthDate != null">
+        birthDate = #{birthDate,jdbcType=DATE},
+      </if>
+      <if test="home != null">
+        home = #{home,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.softeem.bean.po.Landlord">
+    update landlord
+    set `name` = #{name,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR},
+      regTime = #{regTime,jdbcType=TIMESTAMP},
+      bankCard = #{bankCard,jdbcType=VARCHAR},
+      `role` = #{role,jdbcType=INTEGER},
+      certificationId = #{certificationId,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=INTEGER},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      birthDate = #{birthDate,jdbcType=DATE},
+      home = #{home,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
