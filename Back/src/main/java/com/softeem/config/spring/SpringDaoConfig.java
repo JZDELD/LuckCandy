@@ -31,10 +31,10 @@ public class SpringDaoConfig {
     @Bean  //数据库连接池
     public HikariDataSource dataSource() {
         HikariDataSource dataSource = new HikariDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         System.out.println("--------********------driverClassName：" + driverClassName);
         System.out.println("--------********------url：" + url);
-        dataSource.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/house_rent");
+        dataSource.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/house_rent?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false");
         dataSource.setUsername("root");
         dataSource.setPassword("root");
         return dataSource;
